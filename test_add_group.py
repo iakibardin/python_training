@@ -41,7 +41,7 @@ class test_add_group(unittest.TestCase):
         wd.find_element_by_link_text("group page").click()
         wd.find_element_by_link_text("Logout").click()
         self.assertTrue(success)
-    
+
     def tearDown(self):
         self.wd.quit()
 
