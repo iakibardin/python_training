@@ -33,9 +33,9 @@ class test_add_contact(unittest.TestCase):
         # first name
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys("te")
-        wd.find_element_by_name("firstname").click()
-        wd.find_element_by_name("firstname").clear()
+        #wd.find_element_by_name("firstname").send_keys("te")
+        #wd.find_element_by_name("firstname").click()
+        #wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys("test")
         # middle name
         wd.find_element_by_name("middlename").click()
@@ -50,7 +50,7 @@ class test_add_contact(unittest.TestCase):
         wd.find_element_by_name("nickname").clear()
         wd.find_element_by_name("nickname").send_keys("test")
         # uploading photo
-        #wd.find_element_by_name("photo").click()
+        wd.find_element_by_name("photo").send_keys("C:\\Users\\ikibardin\\Desktop\\screen.jpg")
         # title
         wd.find_element_by_name("title").click()
         wd.find_element_by_name("title").clear()
