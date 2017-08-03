@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.webdriver.common.action_chains import ActionChains
 import time, unittest
 import pytest
 from group import Group
@@ -11,9 +9,6 @@ def app(request):
     fixture = Application()
     request.addfinalizer(fixture.destroy)
     return fixture
-
-
-
 
 def test_add_group(app):
     app.login(username="admin", password="secret")
