@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
-import time, unittest
+import unittest
+
 import pytest
+
 from contact import Contact
-from application import Application
+from fixture.application import Application
+
 
 @pytest.fixture
 def app(request):

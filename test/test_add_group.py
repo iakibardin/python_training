@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
-import time, unittest
+import unittest
+
 import pytest
-from group import Group
-from application import Application
+
+from fixture.application import Application
+from model.group import Group
+
 
 @pytest.fixture
 def app(request):
@@ -11,14 +14,14 @@ def app(request):
     return fixture
 
 def test_add_group(app):
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     app.create_gropup(Group(name="1234", header="1234", footer="1234"))
-    app.logout()
+    app.session.logout()
 
 def test_add_empty_group(app):
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     app.create_gropup(Group(name="", header="", footer=""))
-    app.logout()
+    app.session.logout()
 
 
 if __name__ == '__main__':
