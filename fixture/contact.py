@@ -108,3 +108,23 @@ class ContactHelper:
         wd = self.app.wd
         # create new contact
         wd.find_element_by_link_text("add new").click()
+
+    def open_home_page(self):
+        wd = self.app.wd
+        # home page for contact
+        wd.find_element_by_link_text("home").click()
+
+
+    def delete_first_contact(self):
+        from selenium.webdriver.common.keys import Keys
+        wd = self.app.wd
+        self.open_home_page()
+        # select first contact
+        wd.find_element_by_name("selected[]").click()
+        # submit deletion
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        #wd.find_element_by_id("Value")
+        wd.find_element_by_xpath("html/body").send_keys(Keys.ENTER)
+
+
+
