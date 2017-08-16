@@ -116,7 +116,7 @@ class ContactHelper:
 
 
     def delete_first_contact(self):
-        #from selenium.webdriver.common.keys import Keys
+        from selenium.webdriver.common.keys import Keys
         wd = self.app.wd
         self.open_home_page()
         # select first contact
@@ -124,8 +124,9 @@ class ContactHelper:
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         #wd.find_element_by_id("Value")
-        #wd.find_element_by_xpath("html/body").send_keys(Keys.ENTER)
-        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        wd.find_element_by_xpath("html/body").send_keys(Keys.ENTER)
+        #wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        self.open_home_page()
 
     def edit_first_contact(self, contact):
         wd = self.app.wd
@@ -224,6 +225,11 @@ class ContactHelper:
         wd.find_element_by_name("notes").send_keys(contact.note)
         # updating
         wd.find_element_by_xpath("html/body/div[1]/div[4]/form[1]/input[22]").click()
+
+    def count(self):
+        wd = self.app.wd
+        self.open_home_page()
+        return len(wd.find_elements_by_name("selected[]"))
 
 
 
