@@ -1,4 +1,4 @@
-
+from model.contact import Contact
 
 class ContactHelper:
 
@@ -234,6 +234,22 @@ class ContactHelper:
         wd = self.app.wd
         self.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
+
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.open_home_page()
+        contacts = []
+        for element in wd.find_elements_by_name("entry"):
+            cells = element.find_elements_by_tag_name("td")
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            contacts.append(Contact(firstname=cells[2].text, middlename=None, lastname=cells[1].text, nickname=None, company=None, address=cells[3].text, id=id))
+
+            #contacts.append(Contact(firstname=cells[2].text, middlename=None, lastname=cells[1].text, nickname=None, photo_directory=None, title=None, company=None, address=None,
+             #          home_number=None, mobile_number=None, work_number=None, fax=None, email1=None, email2=None, email3=None, homepage=None, day_of_birth=None,
+              #         month_of_birth=None, year_of_birth=None, day_of_annivesary=None, month_of_annivesary=None, year_of_annivesary=None,
+               #        address2=None, home_number2=None, note=None, id=id))
+        return contacts
+
 
 
 
