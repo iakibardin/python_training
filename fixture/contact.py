@@ -103,6 +103,7 @@ class ContactHelper:
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(contact.note)
         self.sumbmit_creation()
+        self.contact_cache = None
 
     def open_contact_page(self):
         wd = self.app.wd
@@ -131,6 +132,7 @@ class ContactHelper:
         wd.find_element_by_xpath("html/body").send_keys(Keys.ENTER)
         #wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
         self.open_home_page()
+        self.contact_cache = None
 
     def edit_first_contact(self, contact):
         wd = self.app.wd
@@ -229,22 +231,25 @@ class ContactHelper:
         wd.find_element_by_name("notes").send_keys(contact.note)
         # updating
         wd.find_element_by_xpath("html/body/div[1]/div[4]/form[1]/input[22]").click()
+        self.contact_cache = None
 
     def count(self):
         wd = self.app.wd
         self.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
-    def get_contact_list(self):
-        wd = self.app.wd
-        self.open_home_page()
-        contacts = []
-        for element in wd.find_elements_by_name("entry"):
-            cells = element.find_elements_by_tag_name("td")
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            contacts.append(Contact(firstname=cells[2].text, middlename=None, lastname=cells[1].text, nickname=None, company=None, address=cells[3].text, id=id))
-        return contacts
+    contact_cache = None
 
+    def get_contact_list(self):
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.open_home_page()
+            self.contact_cache = []
+            for element in wd.find_elements_by_name("entry"):
+                cells = element.find_elements_by_tag_name("td")
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.contact_cache.append(Contact(firstname=cells[2].text, middlename=None, lastname=cells[1].text, nickname=None, company=None, address=cells[3].text, id=id))
+            return list(self.contact_cache)
 
 
 
