@@ -119,13 +119,16 @@ class ContactHelper:
         # home page for contact
         wd.find_element_by_link_text("home").click()
 
+    def delete_some_contact(self, index):
+        self.delete_contact_by_index(0)
 
-    def delete_first_contact(self):
+
+    def delete_contact_by_index(self, index):
         from selenium.webdriver.common.keys import Keys
         wd = self.app.wd
         self.open_home_page()
         # select first contact
-        wd.find_element_by_name("selected[]").click()
+        self.select_contact_by_index(index)
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         #wd.find_element_by_id("Value")
@@ -134,11 +137,18 @@ class ContactHelper:
         self.open_home_page()
         self.contact_cache = None
 
-    def edit_first_contact(self, contact):
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_xpath("//img[@title='Edit']")[index].click()
+
+
+
+    def edit_contact_by_index(self, contact, index):
         wd = self.app.wd
         self.open_home_page()
         # open edditing form
-        wd.find_element_by_xpath("html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img").click()
+        self.select_contact_by_index(index)
+        #wd.find_element_by_xpath("html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img").click()
         # first name
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
