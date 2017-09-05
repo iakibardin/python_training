@@ -9,7 +9,7 @@ def test_add_contact(app):
                                    month_of_birth="//div[@id='content']/form/select[2]//option[2]", year_of_birth="1990",
                                    day_of_annivesary="//div[@id='content']/form/select[3]//option[3]",
                                    month_of_annivesary="//div[@id='content']/form/select[4]//option[2]", year_of_annivesary="2010", address2="test test test 1",
-                                   home_number2="test test test 3", note="testnote")
+                                   home_number2="55555", note="testnote")
 
         app.contact.create(contact)
         assert len(old_contacts) + 1 == app.contact.count()
