@@ -3,10 +3,24 @@ import random
 import string
 
 constant = [
-    Contact(firstname="firstname1", lastname="lastname1", middlename="middlename1", nickname="nickname1",
-            title="title1"),
-    Contact(firstname="firstname2", lastname="lastname2", middlename="middlename2", nickname="nickname2",
-            title="title2")
+    Contact(firstname="firstname1", lastname="lastname1", middlename="middlename1", nickname="nickname1", photo_directory = "C:\\Users\\ikibardin\\Desktop\\newscreen.jpg",
+            title="title1", company="company1", address="address1", home_number="11111", mobile_number="22222", work_number="33333",
+                     fax="44444", email1="mail1", email2="mail2", email3="mail3", homepage="test1.com",
+                     day_of_birth="//div[@id='content']/form/select[1]//option[3]",
+                     month_of_birth="//div[@id='content']/form/select[2]//option[2]", year_of_birth="1990",
+                     day_of_annivesary="//div[@id='content']/form/select[3]//option[3]",
+                     month_of_annivesary="//div[@id='content']/form/select[4]//option[2]", year_of_annivesary="2010",
+                     address2="address2",
+                     home_number2="55555", note="testnote"),
+    Contact(firstname="firstname2", lastname="lastname2", middlename="middlename2", nickname="nickname2", photo_directory = "C:\\Users\\ikibardin\\Desktop\\newscreen.jpg",
+            title="title2",company="company2", address="address2", home_number="11111", mobile_number="55555", work_number="66666",
+                     fax="77777", email1="mail1", email2="mail2", email3="mail3", homepage="test1.com",
+                     day_of_birth="//div[@id='content']/form/select[1]//option[3]",
+                     month_of_birth="//div[@id='content']/form/select[2]//option[2]", year_of_birth="1990",
+                     day_of_annivesary="//div[@id='content']/form/select[3]//option[3]",
+                     month_of_annivesary="//div[@id='content']/form/select[4]//option[2]", year_of_annivesary="2010",
+                     address2="address2",
+                     home_number2="55555", note="testnote")
 ]
 
 
