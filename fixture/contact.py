@@ -138,9 +138,28 @@ class ContactHelper:
         self.open_home_page()
         self.contact_cache = None
 
+
+    def delete_contact_by_id(self, id):
+        from selenium.webdriver.common.keys import Keys
+        wd = self.app.wd
+        self.open_home_page()
+        # select first contact
+        self.select_contact_by_id(id)
+        # submit deletion
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        #wd.find_element_by_id("Value")
+        wd.find_element_by_xpath("html/body").send_keys(Keys.ENTER)
+        #wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        self.open_home_page()
+        self.contact_cache = None
+
     def select_contact_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_xpath("//img[@title='Edit']")[index].click()
+
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
 
 
 
