@@ -1,5 +1,8 @@
 from model.contact import Contact
 import re
+from model.functions import clear_double_space
+
+
 
 class ContactHelper:
 
@@ -161,6 +164,9 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_css_selector("input[value='%s']" % id).click()
 
+    def select_contact_by_id_for_edit(self, id):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//a[@href='edit.php?id=%s']/img[@title='Edit']" % id).click()
 
 
     def edit_contact_by_index(self, contact, index):
@@ -168,7 +174,26 @@ class ContactHelper:
         self.open_home_page()
         # open edditing form
         self.select_contact_by_index(index)
+        self.fill_contact_form(contact)
+        # updating
+        wd.find_element_by_xpath("//input[@value='Update']").click()
+        self.contact_cache = None
+
+
+    def edit_contact_by_id(self, id, contact):
+        wd = self.app.wd
+        self.open_home_page()
+        # open edditing form
+        self.select_contact_by_id_for_edit(id)
         #wd.find_element_by_xpath("html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img").click()
+        self.fill_contact_form(contact)
+        # updating
+        wd.find_element_by_xpath("//input[@value='Update']").click()
+        self.contact_cache = None
+
+
+    def fill_contact_form(self, contact):
+        wd = self.app.wd
         # first name
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -259,9 +284,10 @@ class ContactHelper:
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(contact.note)
-        # updating
-        wd.find_element_by_xpath("html/body/div[1]/div[4]/form[1]/input[22]").click()
-        self.contact_cache = None
+
+
+
+
 
     def count(self):
         wd = self.app.wd
@@ -284,8 +310,9 @@ class ContactHelper:
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 all_phones = cells[5].text
                 all_emailes = cells[4].text
+                hash = lastname + firstname + cells[3].text + cells[4].text + cells[5].text
                 self.contact_cache.append(Contact(firstname=firstname, middlename=None, lastname=lastname, nickname=None, company=None, address=address, id=id,
-                                            all_phones_from_home_page = all_phones, all_emailes_from_home_page = all_emailes))
+                                            all_phones_from_home_page = all_phones, all_emailes_from_home_page = all_emailes, hash=hash))
 
             return list(self.contact_cache)
 
@@ -333,6 +360,24 @@ class ContactHelper:
         mobile_number = re.search("M: (.*)", text).group(1)
         home_number2 = re.search("P: (.*)", text).group(1)
         return Contact(home_number=home_number, mobile_number=mobile_number, work_number=work_number, home_number2=home_number2)
+
+
+
+
+
+    def delete_spaces(self, contact):
+        return Contact(id = contact.id,
+                lastname=clear_double_space(contact.lastname).strip(),
+                firstname=clear_double_space(contact.firstname).strip(),
+                address=clear_double_space(contact.address).strip(),
+                home_number=clear_double_space(contact.home_number).strip(),
+                mobile_number=clear_double_space(contact.mobile_number).strip(),
+                work_number=clear_double_space(contact.work_number).strip(),
+                home_number2=clear_double_space(contact.home_number2).strip(),
+                email1=clear_double_space(contact.email1).strip(),
+                email2=clear_double_space(contact.email2).strip(),
+                email3=clear_double_space(contact.email3).strip())
+
 
 
 

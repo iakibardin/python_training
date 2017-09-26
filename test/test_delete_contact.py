@@ -2,7 +2,7 @@
 from model.contact import Contact
 import random
 
-def test_delete_first_contact(app, db):
+def test_delete_some_contact(app, db, check_ui):
     if len(db.get_contact_list()) == 0:
         app.contact.create(Contact(firstname="test", middlename="test", lastname="test", nickname="test", photo_directory="C:\\Users\\ikibardin\\Desktop\\newscreen.jpg",                              title="test",
                                    company="test", address="test", home_number="11111", mobile_number="22222", work_number="33333", fax="44444", email1="mail1", email2="mail2", email3="mail3", homepage="test.com",
@@ -14,9 +14,12 @@ def test_delete_first_contact(app, db):
 
     old_contacts = db.get_contact_list()
     contact = random.choice(old_contacts)
+    index = old_contacts.index(contact)
     app.contact.delete_contact_by_id(contact.id)
     new_contacts = db.get_contact_list()
     assert len(old_contacts) - 1 == len(new_contacts)
-    old_contacts.remove(contact)
+    old_contacts[index:index + 1] = []
     assert old_contacts == new_contacts
-
+    if check_ui:
+        new_contacts = map(app.contact.delete_spaces, db.get_contact_list())
+        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
